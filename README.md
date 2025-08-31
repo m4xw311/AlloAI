@@ -1,5 +1,10 @@
 # AlloAI
 
+[![CI/CD Pipeline](https://github.com/yourusername/AlloAI/actions/workflows/workflow.yml/badge.svg)](https://github.com/yourusername/AlloAI/actions/workflows/workflow.yml)
+[![PyPI version](https://badge.fury.io/py/alloai.svg)](https://badge.fury.io/py/alloai)
+[![Python versions](https://img.shields.io/pypi/pyversions/alloai.svg)](https://pypi.org/project/alloai/)
+[![License](https://img.shields.io/pypi/l/alloai.svg)](https://github.com/yourusername/AlloAI/blob/main/LICENSE)
+
 A framework for seamlessly mixing code and LLM instructions in markdown files. AlloAI enables you to write polyglot programs that support both traditional programming languages and natural language instructions, all executed in a shared runtime environment.
 
 ## Overview
@@ -259,6 +264,14 @@ mypy alloai/
 
 ### Building and Publishing
 
+The project uses GitHub Actions for automated testing and publishing:
+
+- **Automatic Testing**: Every push and PR triggers tests across multiple Python versions and OS platforms
+- **TestPyPI Publishing**: Pushes to main branch automatically publish to TestPyPI
+- **PyPI Publishing**: Creating a version tag (e.g., `v0.1.0`) automatically publishes to PyPI
+
+#### Manual Publishing
+
 ```bash
 # Build the package
 python -m build
@@ -269,6 +282,28 @@ twine upload -r testpypi dist/*
 # Upload to PyPI
 twine upload dist/*
 ```
+
+#### Automated Release Process
+
+1. Update version in `alloai/__init__.py` and `pyproject.toml`
+2. Commit and push to main:
+   ```bash
+   git add -A
+   git commit -m "Bump version to 0.1.0"
+   git push origin main
+   ```
+3. Create and push a version tag:
+   ```bash
+   git tag -a v0.1.0 -m "Release version 0.1.0"
+   git push origin v0.1.0
+   ```
+4. GitHub Actions will automatically:
+   - Run tests on multiple platforms
+   - Build the package
+   - Publish to PyPI
+   - Create a GitHub release
+
+See `.github/workflows/workflow.yml` for the complete CI/CD pipeline configuration.
 
 ## Requirements
 
@@ -337,6 +372,8 @@ Contributions are welcome! Please feel free to submit pull requests or open issu
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
+
+All pull requests will be automatically tested via GitHub Actions across multiple Python versions and operating systems.
 
 ## License
 
