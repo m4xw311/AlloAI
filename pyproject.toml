@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "alloai"
-version = "0.1.0"
-description = "A framework for seamlessly mixing code and LLM instructions in markdown files"
+version = "0.2.0"
+description = "Write markdown files mixing Python code with natural language prompts that generate and execute additional code in a shared runtime"
 readme = "README.md"
 authors = [
     {name = "Maxwell Felix"}
@@ -44,10 +44,10 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/AlloAI"
-Documentation = "https://github.com/yourusername/AlloAI#readme"
-Repository = "https://github.com/yourusername/AlloAI.git"
-"Bug Tracker" = "https://github.com/yourusername/AlloAI/issues"
+Homepage = "https://github.com/m4xw311/AlloAI"
+Documentation = "https://github.com/m4xw311/AlloAI#readme"
+Repository = "https://github.com/m4xw311/AlloAI.git"
+"Bug Tracker" = "https://github.com/m4xw311/AlloAI/issues"
 
 [project.scripts]
 alloai = "alloai.cli:main"

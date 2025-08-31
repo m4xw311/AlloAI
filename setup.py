@@ -9,12 +9,57 @@ Modern installations should use pyproject.toml directly.
 from setuptools import setup, find_packages
 from pathlib import Path
 
-# Read the README file
+# Create a concise long description
 this_directory = Path(__file__).parent
-long_description = (this_directory / "README.md").read_text(encoding="utf-8")
+long_description = """# AlloAI
+
+A framework for seamlessly mixing Python code and natural language instructions in markdown files.
+
+## Overview
+
+AlloAI lets you write markdown files that mix Python code with natural language instructions. The code blocks execute normally, while text between them becomes prompts for an LLM to generate and execute additional code - all in the same runtime environment with shared variables.
+
+## Key Features
+
+- **Seamless Integration**: Mix Python code and natural language instructions in markdown files
+- **Shared Runtime**: All code blocks and LLM-generated code share the same execution context
+- **State Preservation**: Variables and their values persist across code blocks and LLM instructions
+- **Code Export**: Generate standalone Python scripts from your AlloAI executions for reuse
+- **Flexible LLM Backend**: Supports OpenAI-compatible APIs (including local models)
+
+## Quick Start
+
+1. Install: `pip install alloai`
+2. Set your OpenAI API key: `export OPENAI_API_KEY=your_key`
+3. Create a markdown file with code and instructions
+4. Run: `alloai script.md`
+
+## Example
+
+```markdown
+\`\`\`python
+x = 5
+\`\`\`
+
+Increment x by 1
+
+\`\`\`python
+print(x)  # Will print 6
+\`\`\`
+```
+
+## Documentation
+
+Full documentation, examples, and contribution guidelines are available at:
+https://github.com/m4xw311/AlloAI
+
+## License
+
+MIT License - see LICENSE file for details.
+"""
 
 # Read version from __init__.py
-version = "0.1.0"
+version = "0.2.0"
 init_file = this_directory / "alloai" / "__init__.py"
 if init_file.exists():
     with open(init_file, "r", encoding="utf-8") as f:
@@ -26,16 +71,16 @@ if init_file.exists():
 setup(
     name="alloai",
     version=version,
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Maxwell Felix",
+    author_email="max@example.com",
     description="A framework for seamlessly mixing code and LLM instructions in markdown files",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/AlloAI",
+    url="https://github.com/m4xw311/AlloAI",
     project_urls={
-        "Bug Tracker": "https://github.com/yourusername/AlloAI/issues",
-        "Documentation": "https://github.com/yourusername/AlloAI#readme",
-        "Source Code": "https://github.com/yourusername/AlloAI",
+        "Bug Tracker": "https://github.com/m4xw311/AlloAI/issues",
+        "Documentation": "https://github.com/m4xw311/AlloAI#readme",
+        "Source Code": "https://github.com/m4xw311/AlloAI",
     },
     packages=find_packages(),
     classifiers=[

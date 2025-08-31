@@ -155,3 +155,16 @@ Desktop.ini
 *~
 .env.local
 .env.*.local
+
+# Generated test files
+generated_*.py
+generated_code.py
+/tmp/test_output.py
+test_output.py
+output.py
+
+# Temporary release files
+RELEASE_*_CHECKLIST.md
+RELEASE_NOTES_*.md
+/release-notes-*.md
+/release-checklist-*.md

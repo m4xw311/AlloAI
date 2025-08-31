@@ -58,6 +58,14 @@ def main():
         help='Path to .env file (defaults to current directory .env if exists)'
     )
 
+    arg_parser.add_argument(
+        '-o', '--output',
+        default=None,
+        nargs='?',
+        const=None,
+        help='Path to save the generated Python code for reuse'
+    )
+
     # Parse arguments
     args = arg_parser.parse_args()
 
@@ -105,17 +113,11 @@ def main():
         # Parse the markdown content
         md_parts = parser.parse_markdown(md_content)
 
-        if args.verbose:
-            print(f"Parsed {len(md_parts)} parts from {md_file}")
-            for i, part in enumerate(md_parts, 1):
-                if part["type"] == "prompt":
-                    print(f"  {i}. Instruction: {part['content'][:50]}...")
-                elif part["type"] == "code":
-                    lang = part["language"] if part["language"] else "none"
-                    print(f"  {i}. Code block ({lang}): {len(part['content'])} chars")
-
         # Execute the parsed markdown
-        execute.execute_markdown(md_parts)
+        generated_code = execute.execute_markdown(md_parts, output_file=args.output)
+        # If the flag -o is set but no output file is provided following it, print the generated code to stdout.
+        if args.output is None:
+            print(generated_code)
 
     except FileNotFoundError:
         print(f"Error: File '{md_file}' not found.")

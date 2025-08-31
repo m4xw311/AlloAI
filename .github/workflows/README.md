@@ -31,7 +31,7 @@ This workflow uses PyPI's **trusted publishing** via OpenID Connect (OIDC), whic
 3. Navigate to the project's "Publishing" settings
 4. Add a new trusted publisher:
    - **Publisher**: GitHub
-   - **Repository owner**: `yourusername` (your GitHub username)
+   - **Repository owner**: `m4xw311` (your GitHub username)
    - **Repository name**: `AlloAI`
    - **Workflow name**: `workflow.yml`
    - **Environment**: `pypi` (optional but recommended)
@@ -53,7 +53,7 @@ This workflow uses PyPI's **trusted publishing** via OpenID Connect (OIDC), whic
 - **Deployment branches**: Only from `main` branch
 
 #### `pypi` Environment:
-- **Protection rules**: 
+- **Protection rules**:
   - Required reviewers (optional)
   - Wait timer (optional, e.g., 5 minutes)
 - **Deployment branches**: Only from protected branches or tags
@@ -231,10 +231,10 @@ The workflow uses these GitHub Actions permissions:
 Add these badges to your README.md:
 
 ```markdown
-[![CI/CD Pipeline](https://github.com/yourusername/AlloAI/actions/workflows/workflow.yml/badge.svg)](https://github.com/yourusername/AlloAI/actions/workflows/workflow.yml)
+[![CI/CD Pipeline](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml)
 [![PyPI version](https://badge.fury.io/py/alloai.svg)](https://badge.fury.io/py/alloai)
 [![Python versions](https://img.shields.io/pypi/pyversions/alloai.svg)](https://pypi.org/project/alloai/)
-[![License](https://img.shields.io/pypi/l/alloai.svg)](https://github.com/yourusername/AlloAI/blob/main/LICENSE)
+[![License](https://img.shields.io/pypi/l/alloai.svg)](https://github.com/m4xw311/AlloAI/blob/main/LICENSE)
 ```
 
 ## Security Benefits of OIDC

@@ -1,14 +1,13 @@
 """
-AlloAI - A framework for seamlessly mixing code and LLM instructions.
+AlloAI - Mix Python code with natural language instructions in markdown files.
 
-This package enables polyglot programming by allowing you to write markdown files
-that interleave traditional code with natural language instructions that are
-interpreted by an LLM and executed in the same runtime environment.
+Write markdown files where code blocks execute normally and text between them
+becomes prompts for an LLM to generate and execute additional code - all in
+the same runtime environment with shared variables.
 """
 
-__version__ = "0.1.0"
-__author__ = "Your Name"
-__email__ = "your.email@example.com"
+__version__ = "0.2.0"
+__author__ = "Maxwell Felix"
 
 from .parser import parse_markdown
 from .execute import execute_markdown
