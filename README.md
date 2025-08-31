@@ -307,7 +307,7 @@ See `.github/workflows/workflow.yml` for the complete CI/CD pipeline configurati
 
 ## Requirements
 
-- Python 3.7+
+- Python 3.8+
 - OpenAI API key (or compatible API endpoint)
 - Dependencies:
   - `openai>=1.0.0` - OpenAI API client
