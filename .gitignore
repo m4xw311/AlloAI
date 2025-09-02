@@ -168,3 +168,6 @@ RELEASE_*_CHECKLIST.md
 RELEASE_NOTES_*.md
 /release-notes-*.md
 /release-checklist-*.md
+.alloai_cache/
+
+**/_*/

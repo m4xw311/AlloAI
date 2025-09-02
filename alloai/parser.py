@@ -33,7 +33,8 @@ def parse_markdown(md_content: str) -> List[Dict[str, str]]:
             if text_part:
                 md_parts.append({
                     "type": "prompt",
-                    "content": text_part
+                    "content": text_part,
+                    "pos": last_end
                 })
 
         # Get the code block content and language
@@ -44,7 +45,8 @@ def parse_markdown(md_content: str) -> List[Dict[str, str]]:
             md_parts.append({
                 "type": "code",
                 "language": language,
-                "content": code_content
+                "content": code_content,
+                "pos": match.start()
             })
 
         last_end = match.end()
@@ -55,7 +57,8 @@ def parse_markdown(md_content: str) -> List[Dict[str, str]]:
         if remaining_text:
             md_parts.append({
                 "type": "prompt",
-                "content": remaining_text
+                "content": remaining_text,
+                "pos": last_end
             })
 
     return md_parts

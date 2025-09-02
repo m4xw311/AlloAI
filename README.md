@@ -20,6 +20,7 @@ AlloAI lets you write markdown files that mix Python code with natural language 
 - **Flexible LLM Backend**: Supports OpenAI-compatible APIs (including local models)
 - **Easy Installation**: Available as a pip-installable package with CLI support
 - **Code Export**: Generate standalone Python scripts from your AlloAI executions for reuse
+- **Smart Caching**: Automatic caching of code execution results and LLM responses for faster iterative development
 
 ## Installation
 
@@ -222,6 +223,72 @@ You can then run the generated script directly:
 ```bash
 python3 calculation_standalone.py
 # Output: The result is: 30
+```
+
+## Caching
+
+AlloAI includes intelligent caching to speed up iterative development and testing. Both code execution results and LLM responses are automatically cached using SHA-256 hashing.
+
+### How Caching Works
+
+- **Code Blocks**: Results are cached based on the code content and current variable state
+- **LLM Prompts**: Responses are cached based on the instruction and execution context
+- **Persistence**: Cache is stored locally in `~/.alloai_cache/` and persists between runs
+- **Automatic**: Caching is enabled by default for faster development cycles
+
+### Cache Management
+
+**Disable caching for a single run:**
+```bash
+alloai script.md --no-cache
+```
+
+**Clear the cache:**
+```bash
+alloai script.md --clear-cache
+```
+
+**Clear cache without running a script:**
+```bash
+alloai --clear-cache
+```
+
+### Performance Benefits
+
+Caching provides significant speedup for:
+- Iterative development and debugging
+- Re-running scripts with unchanged sections
+- Testing different parts of your AlloAI scripts
+- Expensive computations or API calls
+
+### Example
+
+First run (no cache):
+```bash
+alloai examples/cache_demo.md
+# Execution time: ~5 seconds (includes LLM calls)
+```
+
+Second run (with cache):
+```bash
+alloai examples/cache_demo.md
+# Execution time: <1 second (uses cached results)
+```
+
+### Programmatic Cache Control
+
+When using the Python API:
+```python
+from alloai import execute_markdown, clear_cache
+
+# Execute with caching (default)
+execute_markdown(parts, use_cache=True)
+
+# Execute without caching
+execute_markdown(parts, use_cache=False)
+
+# Clear all cached data
+clear_cache()
 ```
 
 ## Python API

@@ -59,7 +59,7 @@ MIT License - see LICENSE file for details.
 """
 
 # Read version from __init__.py
-version = "0.2.0"
+version = "0.3.0"
 init_file = this_directory / "alloai" / "__init__.py"
 if init_file.exists():
     with open(init_file, "r", encoding="utf-8") as f:
@@ -72,7 +72,7 @@ setup(
     name="alloai",
     version=version,
     author="Maxwell Felix",
-    author_email="max@example.com",
+    author_email="max@alloai.io",
     description="A framework for seamlessly mixing code and LLM instructions in markdown files",
     long_description=long_description,
     long_description_content_type="text/markdown",

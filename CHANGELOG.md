@@ -7,6 +7,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2025-09-01 - Smart Caching System
+
+### Added
+- Smart caching system for code execution and LLM responses
+  - Automatic caching using SHA-256 hashing
+  - Cache persistence across sessions in `~/.alloai_cache/`
+  - Significant performance improvements for iterative development
+- Cache management CLI options:
+  - `--no-cache` flag to disable caching for a single run
+  - `--clear-cache` flag to clear all cached data
+- Programmatic cache control via Python API
+  - `use_cache` parameter in `execute_markdown()`
+  - `clear_cache()` function for cache management
+- Cache-aware execution that considers variable state and context
+- Gracefully handle text in markdown which is just informational and not an executable instruction
+
+### Changed
+- `execute_and_capture()` now returns cached results when available
+- LLM prompts are cached based on instruction and execution context
+
 ## [0.2.0] - 2025-08-31 - Code Generation and Export
 
 ### Added
@@ -47,6 +67,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for multiple Python versions (3.8+)
 - Automated testing and publishing workflows
 
-[Unreleased]: https://github.com/m4xw311/AlloAI/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/m4xw311/AlloAI/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/m4xw311/AlloAI/compare/v0.2.0...v0.3.0
 [0.2.0]: https://github.com/m4xw311/AlloAI/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/m4xw311/AlloAI/releases/tag/v0.1.0

@@ -7,7 +7,6 @@ from the command line.
 """
 
 import sys
-import os
 import argparse
 import logging
 from pathlib import Path
@@ -16,6 +15,10 @@ from . import parser
 from . import execute
 from . import __version__
 
+# Had to do this as logging did not work when running
+#   as python -m alloai.cli for local development
+while logging.root.handlers:
+    logging.root.removeHandler(logging.root.handlers[-1])
 
 def setup_logging(verbose: bool = False):
     """Configure logging based on verbosity level."""
@@ -24,7 +27,6 @@ def setup_logging(verbose: bool = False):
         level=level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
-
 
 def main():
     """Main entry point for the AlloAI CLI."""
@@ -62,8 +64,20 @@ def main():
         '-o', '--output',
         default=None,
         nargs='?',
-        const=None,
+        const=False,
         help='Path to save the generated Python code for reuse'
+    )
+
+    arg_parser.add_argument(
+        '--no-cache',
+        action='store_true',
+        help='Disable caching of code execution and LLM responses'
+    )
+
+    arg_parser.add_argument(
+        '--clear-cache',
+        action='store_true',
+        help='Clear all cached data before execution'
     )
 
     # Parse arguments
@@ -86,13 +100,11 @@ def main():
         from dotenv import load_dotenv
         load_dotenv()
 
-    # Check if OpenAI API key is configured
-    if not os.getenv("OPENAI_API_KEY"):
-        print("Warning: OPENAI_API_KEY not found in environment variables.")
-        print("Please set it in your .env file or environment.")
-        print("Example: export OPENAI_API_KEY=your_api_key_here")
+    # ToDo code to check if necessary environment variables are set
+    #  Make it a separate validation function validate_env_vars()
+    #validate_env_vars()
 
-    # Process the markdown file
+    # Process the markdown file to execute
     md_file = Path(args.file)
 
     if not md_file.exists():
@@ -105,6 +117,16 @@ def main():
         if response.lower() != 'y':
             sys.exit(0)
 
+    # Handle cache operations
+    if args.clear_cache:
+        execute.clear_cache()
+        print("Cache cleared successfully.")
+        if not args.file:
+            sys.exit(0)
+
+    # Determine whether to use cache
+    use_cache = not args.no_cache
+
     try:
         # Read the markdown content
         with open(md_file, 'r', encoding='utf-8') as f:
@@ -114,9 +136,15 @@ def main():
         md_parts = parser.parse_markdown(md_content)
 
         # Execute the parsed markdown
-        generated_code = execute.execute_markdown(md_parts, output_file=args.output)
+        generated_code = execute.execute_markdown(
+            md_parts,
+            output_file=args.output if args.output else None,
+            use_cache=use_cache,
+            full_markdown_content=md_content
+        )
         # If the flag -o is set but no output file is provided following it, print the generated code to stdout.
-        if args.output is None:
+        if not args.output and args.output is not None:
+            print("\n\n✓ Generated code:")
             print(generated_code)
 
     except FileNotFoundError:
