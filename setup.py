@@ -103,6 +103,7 @@ setup(
     install_requires=[
         "openai>=1.0.0",
         "python-dotenv>=0.19.0",
+        "cloudpickle>=3.1.1",
     ],
     extras_require={
         "dev": [
