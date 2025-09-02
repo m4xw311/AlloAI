@@ -6,6 +6,7 @@ Takes a markdown file content as input and creates string arrays of text parts a
 import re
 from typing import List, Dict
 
+
 def parse_markdown(md_content: str) -> List[Dict[str, str]]:
     """
     Parse markdown content and return array of text parts and code blocks.

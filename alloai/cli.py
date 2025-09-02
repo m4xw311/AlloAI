@@ -20,6 +20,7 @@ from . import __version__
 while logging.root.handlers:
     logging.root.removeHandler(logging.root.handlers[-1])
 
+
 def setup_logging(verbose: bool = False):
     """Configure logging based on verbosity level."""
     level = logging.DEBUG if verbose else logging.WARNING
@@ -27,6 +28,7 @@ def setup_logging(verbose: bool = False):
         level=level,
         format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     )
+
 
 def main():
     """Main entry point for the AlloAI CLI."""
@@ -100,9 +102,9 @@ def main():
         from dotenv import load_dotenv
         load_dotenv()
 
-    # ToDo code to check if necessary environment variables are set
-    #  Make it a separate validation function validate_env_vars()
-    #validate_env_vars()
+    # TODO: code to check if necessary environment variables are set
+    # Make it a separate validation function validate_env_vars()
+    # validate_env_vars()
 
     # Process the markdown file to execute
     md_file = Path(args.file)

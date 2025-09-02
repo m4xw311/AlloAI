@@ -26,11 +26,12 @@ except FileNotFoundError:
 if cache:
     logging.debug("Cache loaded")
     if cache.get("version") != platform.python_version():
-            logging.warning("Cache version mismatch. Clearing cache.")
-            cache = {}
-            cache["version"] = platform.python_version()
+        logging.warning("Cache version mismatch. Clearing cache.")
+        cache = {}
+        cache["version"] = platform.python_version()
 else:
     cache["version"] = platform.python_version()
+
 
 def get_hash(*vars):
     """Generate a unique hash for a group of variables"""
@@ -43,6 +44,7 @@ def get_hash(*vars):
         hasher.update(var_str.encode('utf-8'))
 
     return hasher.hexdigest()
+
 
 def get_openai_client():
     """Get or create OpenAI client with proper configuration."""
@@ -58,6 +60,7 @@ def get_openai_client():
         return OpenAI(api_key=api_key, base_url=base_url)
     else:
         return OpenAI(api_key=api_key)
+
 
 def execute_and_capture(code_block, scope, use_cache=True):
     """
@@ -108,11 +111,14 @@ def execute_and_capture(code_block, scope, use_cache=True):
         logging.debug("Output from cache")
     return output, scope, from_cache
 
-def get_code_from_llm(instruction_block,last_execution_code,last_execution_output,variable_state_string,full_markdown_content,parsed_markdown,current_part_index,use_cache):
+
+def get_code_from_llm(instruction_block, last_execution_code, last_execution_output, variable_state_string,
+                      full_markdown_content, parsed_markdown, current_part_index, use_cache):
     """Get code from LLM prompt"""
     instruction = instruction_block['content']
     logging.debug(f"LLM Instruction:\n```markdown\n{instruction}\n```\n")
-    hash = get_hash(instruction_block,last_execution_code,last_execution_output,variable_state_string,full_markdown_content,parsed_markdown,current_part_index)
+    hash = get_hash(instruction_block, last_execution_code, last_execution_output, variable_state_string,
+                    full_markdown_content, parsed_markdown, current_part_index)
     from_cache = False
     # LLM may not generate code for informational statements
     llm_response = {"code": "", "commentary": ""}
@@ -154,7 +160,8 @@ def get_code_from_llm(instruction_block,last_execution_code,last_execution_outpu
             f"--- CURRENT VARIABLE STATE ---\n"
             f"{variable_state_string if variable_state_string else 'No variables defined yet'}\n\n"
             f"Based on the full file context, execution progress, and current state, "
-            f"determine what action (if any) is needed for this instruction: '{instruction}'\n\n"
+            f"determine what action (if any) is needed for this instruction: "
+            f"'{instruction}'\n\n"
             f"Your response must be in one of these formats:\n"
             f"1. A single code block if you have code to execute:\n"
             f"```python\ncode here\n```\n\n"
@@ -174,7 +181,8 @@ def get_code_from_llm(instruction_block,last_execution_code,last_execution_outpu
             response = client.chat.completions.create(
                 model=model,
                 messages=[
-                    {"role": "system", "content": "You are a helpful assistant that generates python code based on the current script state."},
+                    {"role": "system", "content": "You are a helpful assistant that generates python code "
+                                                  "based on the current script state."},
                     {"role": "user", "content": llm_prompt}
                 ]
             )
@@ -187,7 +195,8 @@ def get_code_from_llm(instruction_block,last_execution_code,last_execution_outpu
                 logging.warning(f"Failed to parse LLM response: {parse_error}")
                 # Fallback: treat entire response as code if it looks like code, otherwise as commentary
                 stripped_response = llm_raw_response.strip()
-                if stripped_response and any(keyword in stripped_response.lower() for keyword in ['def ', 'import ', 'print(', 'for ', 'if ', 'while ', '=']):
+                keywords = ['def ', 'import ', 'print(', 'for ', 'if ', 'while ', '=']
+                if stripped_response and any(keyword in stripped_response.lower() for keyword in keywords):
                     llm_response = {"code": stripped_response, "commentary": ""}
                 else:
                     llm_response = {"code": "", "commentary": stripped_response}
@@ -200,6 +209,7 @@ def get_code_from_llm(instruction_block,last_execution_code,last_execution_outpu
     if not from_cache:
         cache[hash] = llm_response
     return llm_response, from_cache
+
 
 def get_execution_progress_context(parsed_markdown, current_part_index):
     """
@@ -219,7 +229,8 @@ def get_execution_progress_context(parsed_markdown, current_part_index):
     for i, part in enumerate(parsed_markdown):
         part_desc = f"Part {i+1}: "
         if part['type'] == 'code':
-            part_desc += f"[CODE BLOCK] {part.get('language', 'unknown')} - {part['content'][:30].replace(chr(10), ' ')}..."
+            part_desc += (f"[CODE BLOCK] {part.get('language', 'unknown')} - "
+                          f"{part['content'][:30].replace(chr(10), ' ')}...")
         else:
             part_desc += f"[TEXT] {part['content'][:50].replace(chr(10), ' ')}..."
 
@@ -241,6 +252,7 @@ def get_execution_progress_context(parsed_markdown, current_part_index):
             context += f"\n... and {len(upcoming_parts) - 3} more parts"
 
     return context
+
 
 def parse_llm_response(raw_response):
     """
@@ -306,6 +318,7 @@ def parse_llm_response(raw_response):
 
     return response
 
+
 def execute_markdown(parsed_markdown, output_file=None, use_cache=True, full_markdown_content=""):
     """
     Executes list of interleaved Python code blocks and natural
@@ -340,7 +353,7 @@ def execute_markdown(parsed_markdown, output_file=None, use_cache=True, full_mar
 
             output, scope, from_cache = execute_and_capture(part, shared_scope, use_cache)
             if from_cache:
-                shared_scope = scope # Update shared_scope with the cached scope
+                shared_scope = scope  # Update shared_scope with the cached scope
             if output:
                 for op in output.splitlines():
                     print("> " + op)
@@ -351,7 +364,7 @@ def execute_markdown(parsed_markdown, output_file=None, use_cache=True, full_mar
             # Prepare the current variable state for the prompt
             variable_state_lines = []
             for key, value in shared_scope.items():
-                if not key.startswith('__'): # Filter out built-ins
+                if not key.startswith('__'):  # Filter out built-ins
                     try:
                         # Use repr() for a developer-friendly representation
                         variable_state_lines.append(f"{key} = {repr(value)}")
@@ -361,7 +374,9 @@ def execute_markdown(parsed_markdown, output_file=None, use_cache=True, full_mar
 
             try:
                 # Call the LLM API to generate code with the instruction and variable state
-                llm_response, from_cache = get_code_from_llm(part,last_execution_code,last_execution_output,variable_state_string,full_markdown_content,parsed_markdown,part_index,use_cache)
+                llm_response, from_cache = get_code_from_llm(
+                    part, last_execution_code, last_execution_output, variable_state_string,
+                    full_markdown_content, parsed_markdown, part_index, use_cache)
             except Exception as e:
                 print(f"Error calling LLM: {e}")
                 logging.error(f"LLM API call failed: {e}")
@@ -402,16 +417,16 @@ def execute_markdown(parsed_markdown, output_file=None, use_cache=True, full_mar
             # TODO: language is hardcoded here
             llm_code_block = {
                 'content': llm_code,
-                'language': 'python' # Hardcoded for now
+                'language': 'python'  # Hardcoded for now
             }
             try:
                 output, scope, from_cache = execute_and_capture(llm_code_block, shared_scope, use_cache)
                 if from_cache:
-                    shared_scope = scope # Update shared_scope with the cached scope
+                    shared_scope = scope  # Update shared_scope with the cached scope
                 if output:
                     for op in output.splitlines():
                         print("> " + op)
-                    last_execution_output = output # TODO see if needed
+                    last_execution_output = output  # TODO see if needed
             except Exception as e:
                 print(f"Error executing LLM-generated code: {e}")
                 logging.error(f"LLM code execution failed: {e}")
@@ -464,8 +479,6 @@ def clear_cache():
     This function removes all cached execution results and LLM responses,
     forcing fresh execution on subsequent runs.
     """
-    global cache
-
     # Clear in-memory cache
     cache.clear()
     cache["version"] = platform.python_version()

@@ -17,7 +17,9 @@ A framework for seamlessly mixing Python code and natural language instructions 
 
 ## Overview
 
-AlloAI lets you write markdown files that mix Python code with natural language instructions. The code blocks execute normally, while text between them becomes prompts for an LLM to generate and execute additional code - all in the same runtime environment with shared variables.
+AlloAI lets you write markdown files that mix Python code with natural language instructions.
+The code blocks execute normally, while text between them becomes prompts for an LLM to generate
+and execute additional code - all in the same runtime environment with shared variables.
 
 ## Key Features
 
@@ -37,15 +39,15 @@ AlloAI lets you write markdown files that mix Python code with natural language 
 ## Example
 
 ```markdown
-\`\`\`python
+```python
 x = 5
-\`\`\`
+```
 
 Increment x by 1
 
-\`\`\`python
+```python
 print(x)  # Will print 6
-\`\`\`
+```
 ```
 
 ## Documentation
