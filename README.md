@@ -3,7 +3,7 @@
 [![CI/CD Pipeline](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml)
 [![PyPI version](https://badge.fury.io/py/psyborg.svg)](https://badge.fury.io/py/psyborg)
 [![Python versions](https://img.shields.io/pypi/pyversions/psyborg.svg)](https://pypi.org/project/psyborg/)
-[![License](https://img.shields.io/pypi/l/psyborg.svg)](https://github.com/m4xw311/psyborg/blob/main/LICENSE)
+[![License](https://img.shields.io/pypi/l/psyborg.svg)](https://github.com/m4xw311/psyborg/blob/master/LICENSE)
 
 An agentless vibe coding framework for seamlessly mixing code and LLM instructions in executable markdown files. psyborg enables you to write polyglot programs that support both traditional programming languages and natural language instructions, all executed in a shared runtime environment.
 
