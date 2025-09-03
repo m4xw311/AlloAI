@@ -1,6 +1,6 @@
 # GitHub Actions CI/CD Setup
 
-This directory contains the GitHub Actions workflow configuration for the AlloAI project.
+This directory contains the GitHub Actions workflow configuration for the psyborg project.
 
 ## Overview
 
@@ -32,7 +32,7 @@ This workflow uses PyPI's **trusted publishing** via OpenID Connect (OIDC), whic
 4. Add a new trusted publisher:
    - **Publisher**: GitHub
    - **Repository owner**: `m4xw311` (your GitHub username)
-   - **Repository name**: `AlloAI`
+   - **Repository name**: `psyborg`
    - **Workflow name**: `workflow.yml`
    - **Environment**: `pypi` (optional but recommended)
 
@@ -98,13 +98,13 @@ The workflow runs on:
 - **Trigger**: Pushes to main branch
 - **Purpose**: Test package distribution before production
 - **Authentication**: OIDC trusted publishing (no token needed)
-- **URL**: https://test.pypi.org/p/alloai
+- **URL**: https://test.pypi.org/p/psyborg
 
 ### 4. Publish to PyPI
 - **Trigger**: Version tags (e.g., `v0.1.0`)
 - **Purpose**: Production release
 - **Authentication**: OIDC trusted publishing (no token needed)
-- **URL**: https://pypi.org/p/alloai
+- **URL**: https://pypi.org/p/psyborg
 
 ### 5. Create GitHub Release
 - **Trigger**: After successful PyPI publish
@@ -123,7 +123,7 @@ The workflow runs on:
 To release a new version:
 
 1. **Update version numbers** in:
-   - `alloai/__init__.py`
+   - `psyborg/__init__.py`
    - `pyproject.toml`
    - `setup.py` (if different)
 
@@ -143,9 +143,9 @@ To release a new version:
 4. **Monitor the Actions tab** on GitHub to watch the release process
 
 5. **Verify the release**:
-   - Check PyPI: https://pypi.org/project/alloai/
+   - Check PyPI: https://pypi.org/project/psyborg/
    - Check GitHub Releases page
-   - Test installation: `pip install alloai==0.1.0`
+   - Test installation: `pip install psyborg==0.1.0`
 
 ## Version Tag Formats
 
@@ -231,10 +231,10 @@ The workflow uses these GitHub Actions permissions:
 Add these badges to your README.md:
 
 ```markdown
-[![CI/CD Pipeline](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml)
-[![PyPI version](https://badge.fury.io/py/alloai.svg)](https://badge.fury.io/py/alloai)
-[![Python versions](https://img.shields.io/pypi/pyversions/alloai.svg)](https://pypi.org/project/alloai/)
-[![License](https://img.shields.io/pypi/l/alloai.svg)](https://github.com/m4xw311/AlloAI/blob/main/LICENSE)
+[![CI/CD Pipeline](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml)
+[![PyPI version](https://badge.fury.io/py/psyborg.svg)](https://badge.fury.io/py/psyborg)
+[![Python versions](https://img.shields.io/pypi/pyversions/psyborg.svg)](https://pypi.org/project/psyborg/)
+[![License](https://img.shields.io/pypi/l/psyborg.svg)](https://github.com/m4xw311/psyborg/blob/main/LICENSE)
 ```
 
 ## Security Benefits of OIDC

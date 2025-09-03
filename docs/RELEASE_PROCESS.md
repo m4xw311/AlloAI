@@ -1,6 +1,6 @@
 # Release Process
 
-This document outlines the release process for AlloAI.
+This document outlines the release process for psyborg.
 
 ## Pre-Release Checklist
 
@@ -17,7 +17,7 @@ Before creating a release, ensure:
 ### 1. Update Version Numbers
 
 Update version in all relevant files:
-- [ ] `alloai/__init__.py`
+- [ ] `psyborg/__init__.py`
 - [ ] `pyproject.toml`
 - [ ] `setup.py` (if not reading from __init__.py)
 
@@ -35,12 +35,12 @@ Update version in all relevant files:
 pytest
 
 # Run with coverage
-pytest --cov=alloai
+pytest --cov=psyborg
 
 # Check code formatting
-black alloai/
-flake8 alloai/
-mypy alloai/
+black psyborg/
+flake8 psyborg/
+mypy psyborg/
 
 # Test installation locally
 pip install -e .
@@ -59,8 +59,8 @@ python -m build
 twine check dist/*
 
 # Optional: Test install from wheel
-pip install dist/alloai-*.whl
-alloai examples/example.md
+pip install dist/psyborg-*.whl
+psyborg examples/example.md
 ```
 
 ### 5. Commit Release Changes
@@ -93,8 +93,8 @@ Release will be created automatically by GitHub Actions.
 
 ### 9. Verify PyPI Release
 
-- [ ] Check package at https://pypi.org/project/alloai/
-- [ ] Test installation: `pip install alloai==X.Y.Z`
+- [ ] Check package at https://pypi.org/project/psyborg/
+- [ ] Test installation: `pip install psyborg==X.Y.Z`
 - [ ] Verify package metadata is correct
 
 ### 10. Post-Release

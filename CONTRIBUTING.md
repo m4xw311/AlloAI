@@ -1,6 +1,6 @@
-# Contributing to AlloAI
+# Contributing to psyborg
 
-Thank you for your interest in contributing to AlloAI! We welcome contributions from the community and are grateful for any help you can provide.
+Thank you for your interest in contributing to psyborg! We welcome contributions from the community and are grateful for any help you can provide.
 
 ## Table of Contents
 
@@ -43,13 +43,13 @@ Looking for a good first issue? Check out issues labeled with `good first issue`
 
 2. **Clone your fork locally**:
    ```bash
-   git clone https://github.com/your-username/AlloAI.git
-   cd AlloAI
+   git clone https://github.com/your-username/psyborg.git
+   cd psyborg
    ```
 
 3. **Add the upstream repository**:
    ```bash
-   git remote add upstream https://github.com/m4xw311/AlloAI.git
+   git remote add upstream https://github.com/m4xw311/psyborg.git
    ```
 
 4. **Create a virtual environment**:
@@ -83,14 +83,14 @@ Looking for a good first issue? Check out issues labeled with `good first issue`
 3. **Run tests locally**:
    ```bash
    pytest
-   pytest --cov=alloai  # With coverage
+   pytest --cov=psyborg  # With coverage
    ```
 
 4. **Check code style**:
    ```bash
-   black alloai/
-   flake8 alloai/
-   mypy alloai/
+   black psyborg/
+   flake8 psyborg/
+   mypy psyborg/
    ```
 
 5. **Commit your changes**:
@@ -117,7 +117,7 @@ Looking for a good first issue? Check out issues labeled with `good first issue`
 
 ## Technical Documentation
 
-For detailed technical information about AlloAI's architecture, design decisions, and implementation details, see [DEVELOPMENT.md](docs/DEVELOPMENT.md). This includes:
+For detailed technical information about psyborg's architecture, design decisions, and implementation details, see [DEVELOPMENT.md](docs/DEVELOPMENT.md). This includes:
 
 - Architecture overview and component details
 - Code flow and execution model
@@ -147,16 +147,16 @@ We use the following tools to maintain code quality:
 
 ```bash
 # Format code
-black alloai/
+black psyborg/
 
 # Check linting
-flake8 alloai/
+flake8 psyborg/
 
 # Check types
-mypy alloai/
+mypy psyborg/
 
 # Sort imports
-isort alloai/
+isort psyborg/
 ```
 
 ## Testing
@@ -176,7 +176,7 @@ isort alloai/
 pytest
 
 # Run with coverage
-pytest --cov=alloai
+pytest --cov=psyborg
 
 # Run specific test file
 pytest tests/test_parser.py
@@ -249,17 +249,17 @@ Include:
 - Expected behavior
 - Actual behavior
 - Error messages (if any)
-- Environment details (OS, Python version, AlloAI version)
+- Environment details (OS, Python version, psyborg version)
 - Minimal reproducible example
 
 Example:
 ```markdown
 **Description**
-When running AlloAI with a markdown file containing [...], the execution fails.
+When running psyborg with a markdown file containing [...], the execution fails.
 
 **Steps to Reproduce**
 1. Create a file `test.md` with content: [...]
-2. Run `alloai test.md`
+2. Run `psyborg test.md`
 3. See error
 
 **Expected Behavior**
@@ -271,7 +271,7 @@ The script fails with error: [...]
 **Environment**
 - OS: Ubuntu 22.04
 - Python: 3.9.7
-- AlloAI: 0.2.0
+- psyborg: 0.2.0
 ```
 
 ## Feature Requests
@@ -305,7 +305,7 @@ Any other context, mockups, or examples.
 For detailed release instructions, see [docs/RELEASE_PROCESS.md](docs/RELEASE_PROCESS.md).
 
 Quick reference:
-1. Update version in `alloai/__init__.py` and `pyproject.toml`
+1. Update version in `psyborg/__init__.py` and `pyproject.toml`
 2. Update CHANGELOG.md with release date and changes
 3. Run tests and build checks
 4. Commit: `git commit -m "Release version X.Y.Z"`
@@ -327,4 +327,4 @@ Contributors will be recognized in:
 - Release notes
 - Special thanks in major releases
 
-Thank you for contributing to AlloAI! 🎉
+Thank you for contributing to psyborg! 🎉

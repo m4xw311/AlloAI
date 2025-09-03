@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-Setup script for AlloAI package.
+Setup script for psyborg package.
 
 This is a fallback for older pip versions that don't support pyproject.toml.
 Modern installations should use pyproject.toml directly.
@@ -11,13 +11,13 @@ from pathlib import Path
 
 # Create a concise long description
 this_directory = Path(__file__).parent
-long_description = """# AlloAI
+long_description = """# psyborg
 
 A framework for seamlessly mixing Python code and natural language instructions in markdown files.
 
 ## Overview
 
-AlloAI lets you write markdown files that mix Python code with natural language instructions.
+psyborg lets you write markdown files that mix Python code with natural language instructions.
 The code blocks execute normally, while text between them becomes prompts for an LLM to generate
 and execute additional code - all in the same runtime environment with shared variables.
 
@@ -26,15 +26,15 @@ and execute additional code - all in the same runtime environment with shared va
 - **Seamless Integration**: Mix Python code and natural language instructions in markdown files
 - **Shared Runtime**: All code blocks and LLM-generated code share the same execution context
 - **State Preservation**: Variables and their values persist across code blocks and LLM instructions
-- **Code Export**: Generate standalone Python scripts from your AlloAI executions for reuse
+- **Code Export**: Generate standalone Python scripts from your psyborg executions for reuse
 - **Flexible LLM Backend**: Supports OpenAI-compatible APIs (including local models)
 
 ## Quick Start
 
-1. Install: `pip install alloai`
+1. Install: `pip install psyborg`
 2. Set your OpenAI API key: `export OPENAI_API_KEY=your_key`
 3. Create a markdown file with code and instructions
-4. Run: `alloai script.md`
+4. Run: `psyborg script.md`
 
 ## Example
 
@@ -53,7 +53,7 @@ print(x)  # Will print 6
 ## Documentation
 
 Full documentation, examples, and contribution guidelines are available at:
-https://github.com/m4xw311/AlloAI
+https://github.com/m4xw311/psyborg
 
 ## License
 
@@ -61,8 +61,8 @@ MIT License - see LICENSE file for details.
 """
 
 # Read version from __init__.py
-version = "0.3.0"
-init_file = this_directory / "alloai" / "__init__.py"
+version = "0.4.0"
+init_file = this_directory / "psyborg" / "__init__.py"
 if init_file.exists():
     with open(init_file, "r", encoding="utf-8") as f:
         for line in f:
@@ -71,18 +71,18 @@ if init_file.exists():
                 break
 
 setup(
-    name="alloai",
+    name="psyborg",
     version=version,
     author="Maxwell Felix",
     author_email="max@alloai.io",
     description="A framework for seamlessly mixing code and LLM instructions in markdown files",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/m4xw311/AlloAI",
+    url="https://github.com/m4xw311/psyborg",
     project_urls={
-        "Bug Tracker": "https://github.com/m4xw311/AlloAI/issues",
-        "Documentation": "https://github.com/m4xw311/AlloAI#readme",
-        "Source Code": "https://github.com/m4xw311/AlloAI",
+        "Bug Tracker": "https://github.com/m4xw311/psyborg/issues",
+        "Documentation": "https://github.com/m4xw311/psyborg#readme",
+        "Source Code": "https://github.com/m4xw311/psyborg",
     },
     packages=find_packages(),
     classifiers=[
@@ -118,7 +118,7 @@ setup(
     },
     entry_points={
         "console_scripts": [
-            "alloai=alloai.cli:main",
+            "psyborg=psyborg.cli:main",
         ],
     },
     keywords="llm ai markdown code-execution polyglot scripting",

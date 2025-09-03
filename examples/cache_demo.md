@@ -1,6 +1,6 @@
-# Cache Demo for AlloAI
+# Cache Demo for psyborg
 
-This example demonstrates the caching functionality in AlloAI. When you run this script multiple times, subsequent runs will use cached results for both code execution and LLM responses.
+This example demonstrates the caching functionality in psyborg. When you run this script multiple times, subsequent runs will use cached results for both code execution and LLM responses.
 
 ## Setup
 
@@ -73,25 +73,25 @@ To test the caching functionality:
 
 1. **First run** (no cache):
    ```bash
-   alloai examples/cache_demo.md
+   psyborg examples/cache_demo.md
    ```
    Note the execution time.
 
 2. **Second run** (with cache):
    ```bash
-   alloai examples/cache_demo.md
+   psyborg examples/cache_demo.md
    ```
    Notice how much faster it runs!
 
 3. **Run without cache**:
    ```bash
-   alloai examples/cache_demo.md --no-cache
+   psyborg examples/cache_demo.md --no-cache
    ```
    This will be slow again like the first run.
 
 4. **Clear cache and run**:
    ```bash
-   alloai examples/cache_demo.md --clear-cache
+   psyborg examples/cache_demo.md --clear-cache
    ```
    This clears the cache before running.
 

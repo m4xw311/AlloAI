@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-Command-line interface for AlloAI.
+Command-line interface for psyborg.
 
-This module provides the main entry point for running AlloAI scripts
+This module provides the main entry point for running psyborg scripts
 from the command line.
 """
 
@@ -16,7 +16,7 @@ from . import execute
 from . import __version__
 
 # Had to do this as logging did not work when running
-#   as python -m alloai.cli for local development
+#   as python -m psyborg.cli for local development
 while logging.root.handlers:
     logging.root.removeHandler(logging.root.handlers[-1])
 
@@ -25,61 +25,57 @@ def setup_logging(verbose: bool = False):
     """Configure logging based on verbosity level."""
     level = logging.DEBUG if verbose else logging.WARNING
     logging.basicConfig(
-        level=level,
-        format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+        level=level, format="%(asctime)s - %(name)s - %(levelname)s - %(message)s"
     )
 
 
 def main():
-    """Main entry point for the AlloAI CLI."""
+    """Main entry point for the psyborg CLI."""
     # Set up argument parser
     arg_parser = argparse.ArgumentParser(
-        prog='alloai',
-        description='Execute AlloAI scripts that mix code and LLM instructions.',
-        epilog='Example: alloai script.md'
+        prog="psyborg",
+        description="Execute psyborg scripts that mix code and LLM instructions.",
+        epilog="Example: psyborg script.md",
+    )
+
+    arg_parser.add_argument("file", help="Path to the markdown file to execute")
+
+    arg_parser.add_argument(
+        "-v",
+        "--verbose",
+        action="store_true",
+        help="Enable verbose output for debugging",
     )
 
     arg_parser.add_argument(
-        'file',
-        help='Path to the markdown file to execute'
+        "--version", action="version", version=f"%(prog)s {__version__}"
     )
 
     arg_parser.add_argument(
-        '-v', '--verbose',
-        action='store_true',
-        help='Enable verbose output for debugging'
-    )
-
-    arg_parser.add_argument(
-        '--version',
-        action='version',
-        version=f'%(prog)s {__version__}'
-    )
-
-    arg_parser.add_argument(
-        '--env',
+        "--env",
         default=None,
-        help='Path to .env file (defaults to current directory .env if exists)'
+        help="Path to .env file (defaults to current directory .env if exists)",
     )
 
     arg_parser.add_argument(
-        '-o', '--output',
+        "-o",
+        "--output",
         default=None,
-        nargs='?',
+        nargs="?",
         const=False,
-        help='Path to save the generated Python code for reuse'
+        help="Path to save the generated Python code for reuse",
     )
 
     arg_parser.add_argument(
-        '--no-cache',
-        action='store_true',
-        help='Disable caching of code execution and LLM responses'
+        "--no-cache",
+        action="store_true",
+        help="Disable caching of code execution and LLM responses",
     )
 
     arg_parser.add_argument(
-        '--clear-cache',
-        action='store_true',
-        help='Clear all cached data before execution'
+        "--clear-cache",
+        action="store_true",
+        help="Clear all cached data before execution",
     )
 
     # Parse arguments
@@ -96,10 +92,12 @@ def main():
             sys.exit(1)
         # Load the specified .env file
         from dotenv import load_dotenv
+
         load_dotenv(env_path)
     else:
         # Try to load .env from current directory if it exists
         from dotenv import load_dotenv
+
         load_dotenv()
 
     # TODO: code to check if necessary environment variables are set
@@ -113,10 +111,10 @@ def main():
         print(f"Error: File '{md_file}' not found.")
         sys.exit(1)
 
-    if not md_file.suffix.lower() in ['.md', '.markdown']:
+    if not md_file.suffix.lower() in [".md", ".markdown"]:
         print(f"Warning: File '{md_file}' does not have a .md extension.")
         response = input("Continue anyway? (y/n): ")
-        if response.lower() != 'y':
+        if response.lower() != "y":
             sys.exit(0)
 
     # Handle cache operations
@@ -131,7 +129,7 @@ def main():
 
     try:
         # Read the markdown content
-        with open(md_file, 'r', encoding='utf-8') as f:
+        with open(md_file, "r", encoding="utf-8") as f:
             md_content = f.read()
 
         # Parse the markdown content
@@ -142,7 +140,7 @@ def main():
             md_parts,
             output_file=args.output if args.output else None,
             use_cache=use_cache,
-            full_markdown_content=md_content
+            full_markdown_content=md_content,
         )
         # If the flag -o is set but no output file is provided following it, print the generated code to stdout.
         if not args.output and args.output is not None:
@@ -159,6 +157,7 @@ def main():
         print(f"Error processing file: {e}")
         if args.verbose:
             import traceback
+
             traceback.print_exc()
         sys.exit(1)
 

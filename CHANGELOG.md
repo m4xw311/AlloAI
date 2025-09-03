@@ -1,18 +1,23 @@
 # Changelog
 
-All notable changes to AlloAI will be documented in this file.
+All notable changes to psyborg will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
 
+## [0.4.0] - 2025-09-02 - Re-release as psyborg
+
+### Changed
+- Renamed the project to psyborg
+
 ## [0.3.0] - 2025-09-01 - Smart Caching System
 
 ### Added
 - Smart caching system for code execution and LLM responses
   - Automatic caching using SHA-256 hashing
-  - Cache persistence across sessions in `~/.alloai_cache/`
+  - Cache persistence across sessions in `~/.psyborg_cache/`
   - Significant performance improvements for iterative development
 - Cache management CLI options:
   - `--no-cache` flag to disable caching for a single run
@@ -31,7 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Code generation and export feature (`-o` / `--output` flag)
-- Generate standalone Python scripts from AlloAI executions
+- Generate standalone Python scripts from psyborg executions
 - Include both original and LLM-generated code with helpful comments
 - Make exported scripts executable on Unix-like systems
 - Support for programmatic code export via Python API
@@ -52,7 +57,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Basic markdown parsing for code blocks and text
 - Python code execution with shared runtime
 - LLM integration for natural language instructions
-- CLI tool for running AlloAI scripts
+- CLI tool for running psyborg scripts
 - PyPI package distribution
 - Support for OpenAI-compatible APIs
 - Environment variable configuration via .env files
@@ -67,7 +72,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for multiple Python versions (3.8+)
 - Automated testing and publishing workflows
 
-[Unreleased]: https://github.com/m4xw311/AlloAI/compare/v0.3.0...HEAD
-[0.3.0]: https://github.com/m4xw311/AlloAI/compare/v0.2.0...v0.3.0
-[0.2.0]: https://github.com/m4xw311/AlloAI/compare/v0.1.0...v0.2.0
-[0.1.0]: https://github.com/m4xw311/AlloAI/releases/tag/v0.1.0
+[Unreleased]: https://github.com/m4xw311/psyborg/compare/v0.3.0...HEAD
+[0.3.0]: https://github.com/m4xw311/psyborg/compare/v0.2.0...v0.3.0
+[0.2.0]: https://github.com/m4xw311/psyborg/compare/v0.1.0...v0.2.0
+[0.1.0]: https://github.com/m4xw311/psyborg/releases/tag/v0.1.0

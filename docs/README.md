@@ -1,6 +1,6 @@
 # Documentation
 
-This directory contains technical and process documentation for AlloAI development.
+This directory contains technical and process documentation for psyborg development.
 
 ## Contents
 
@@ -25,7 +25,7 @@ This directory contains technical and process documentation for AlloAI developme
 
 ## For Contributors
 
-If you're contributing to AlloAI, start with:
+If you're contributing to psyborg, start with:
 1. [CONTRIBUTING.md](../CONTRIBUTING.md) in the root directory for contribution guidelines
 2. [DEVELOPMENT.md](DEVELOPMENT.md) for technical details
 3. [RELEASE_PROCESS.md](RELEASE_PROCESS.md) if you're a maintainer

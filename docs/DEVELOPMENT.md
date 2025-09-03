@@ -1,17 +1,17 @@
 # Development Guide
 
-This document contains technical details for developers working on AlloAI.
+This document contains technical details for developers working on psyborg.
 
 ## Architecture Overview
 
-AlloAI consists of three main components:
+psyborg consists of three main components:
 
-### 1. Parser (`alloai/parser.py`)
+### 1. Parser (`psyborg/parser.py`)
 - Extracts code blocks and text instructions from markdown files
 - Uses regex patterns to identify code blocks with optional language tags
 - Returns structured list of dictionaries with type, content, and language
 
-### 2. Executor (`alloai/execute.py`)
+### 2. Executor (`psyborg/execute.py`)
 - Maintains persistent Python runtime environment
 - Captures stdout from code execution
 - Builds context for LLM including:
@@ -21,7 +21,7 @@ AlloAI consists of three main components:
 - Executes LLM-generated code in same environment
 - Tracks all executed code for export feature
 
-### 3. CLI (`alloai/cli.py`)
+### 3. CLI (`psyborg/cli.py`)
 - Argument parsing with argparse
 - Environment configuration via dotenv
 - Error handling and user feedback
@@ -30,7 +30,7 @@ AlloAI consists of three main components:
 ## Code Flow
 
 ```
-1. User runs: alloai script.md
+1. User runs: psyborg script.md
 2. CLI loads environment variables (.env)
 3. Parser extracts code blocks and instructions
 4. For each part:
@@ -181,7 +181,7 @@ def execute_markdown(
 
 ### Package Structure
 ```
-alloai/
+psyborg/
 ├── __init__.py       # Package metadata and version
 ├── cli.py            # Entry point and CLI
 ├── parser.py         # Markdown parsing
@@ -189,7 +189,7 @@ alloai/
 ```
 
 ### Version Management
-- Version defined in `alloai/__init__.py`
+- Version defined in `psyborg/__init__.py`
 - Also update in `pyproject.toml`
 - Follow semantic versioning (MAJOR.MINOR.PATCH)
 
@@ -208,10 +208,10 @@ twine check dist/*
 ### Testing Package Installation
 ```bash
 # Test from TestPyPI
-pip install -i https://test.pypi.org/simple/ alloai
+pip install -i https://test.pypi.org/simple/ psyborg
 
 # Test from local wheel
-pip install dist/alloai-*.whl
+pip install dist/psyborg-*.whl
 ```
 
 ## Security Considerations

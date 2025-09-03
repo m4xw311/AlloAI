@@ -3,8 +3,8 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "alloai"
-version = "0.3.0"
+name = "psyborg"
+version = "0.4.0"
 description = "Write markdown files mixing Python code with natural language prompts that generate and execute additional code in a shared runtime"
 readme = "README.md"
 authors = [
@@ -45,16 +45,16 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/m4xw311/AlloAI"
-Documentation = "https://github.com/m4xw311/AlloAI#readme"
-Repository = "https://github.com/m4xw311/AlloAI.git"
-"Bug Tracker" = "https://github.com/m4xw311/AlloAI/issues"
+Homepage = "https://github.com/m4xw311/psyborg"
+Documentation = "https://github.com/m4xw311/psyborg#readme"
+Repository = "https://github.com/m4xw311/psyborg.git"
+"Bug Tracker" = "https://github.com/m4xw311/psyborg/issues"
 
 [project.scripts]
-alloai = "alloai.cli:main"
+psyborg = "psyborg.cli:main"
 
 [tool.setuptools]
-packages = ["alloai"]
+packages = ["psyborg"]
 
 [tool.setuptools.package-data]
-alloai = ["py.typed"]
+psyborg = ["py.typed"]

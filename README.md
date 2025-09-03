@@ -1,15 +1,15 @@
-# AlloAI
+# psyborg
 
-[![CI/CD Pipeline](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/AlloAI/actions/workflows/workflow.yml)
-[![PyPI version](https://badge.fury.io/py/alloai.svg)](https://badge.fury.io/py/alloai)
-[![Python versions](https://img.shields.io/pypi/pyversions/alloai.svg)](https://pypi.org/project/alloai/)
-[![License](https://img.shields.io/pypi/l/alloai.svg)](https://github.com/m4xw311/AlloAI/blob/main/LICENSE)
+[![CI/CD Pipeline](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml/badge.svg)](https://github.com/m4xw311/psyborg/actions/workflows/workflow.yml)
+[![PyPI version](https://badge.fury.io/py/psyborg.svg)](https://badge.fury.io/py/psyborg)
+[![Python versions](https://img.shields.io/pypi/pyversions/psyborg.svg)](https://pypi.org/project/psyborg/)
+[![License](https://img.shields.io/pypi/l/psyborg.svg)](https://github.com/m4xw311/psyborg/blob/main/LICENSE)
 
-An agentless vibe coding framework for seamlessly mixing code and LLM instructions in executable markdown files. AlloAI enables you to write polyglot programs that support both traditional programming languages and natural language instructions, all executed in a shared runtime environment.
+An agentless vibe coding framework for seamlessly mixing code and LLM instructions in executable markdown files. psyborg enables you to write polyglot programs that support both traditional programming languages and natural language instructions, all executed in a shared runtime environment.
 
 ## Overview
 
-AlloAI lets you write markdown files that mix Python code with natural language instructions. The code blocks execute normally, while text between them becomes prompts for an LLM to generate and execute additional code - all in the same runtime environment with shared variables.
+psyborg lets you write markdown files that mix Python code with natural language instructions. The code blocks execute normally, while text between them becomes prompts for an LLM to generate and execute additional code - all in the same runtime environment with shared variables.
 
 ## Features
 
@@ -19,7 +19,7 @@ AlloAI lets you write markdown files that mix Python code with natural language 
 - **Simple Syntax**: Use standard markdown code blocks and plain text instructions
 - **Flexible LLM Backend**: Supports OpenAI-compatible APIs (including local models)
 - **Easy Installation**: Available as a pip-installable package with CLI support
-- **Code Export**: Generate standalone Python scripts from your AlloAI executions for reuse
+- **Code Export**: Generate standalone Python scripts from your psyborg executions for reuse
 - **Smart Caching**: Automatic caching of code execution results and LLM responses for faster iterative development
 
 ## Installation
@@ -27,14 +27,14 @@ AlloAI lets you write markdown files that mix Python code with natural language 
 ### From PyPI (Recommended)
 
 ```bash
-pip install alloai
+pip install psyborg
 ```
 
 ### From Source (Development)
 
 ```bash
-git clone https://github.com/m4xw311/AlloAI.git
-cd AlloAI
+git clone https://github.com/m4xw311/psyborg.git
+cd psyborg
 pip install -e .
 ```
 
@@ -48,323 +48,242 @@ pip install -e ".[dev]"
 Create a `.env` file in your project directory with your OpenAI API configuration:
 
 ```env
-OPENAI_API_KEY=your_api_key_here
+OPENAI_API_KEY=your_openai_api_key_here
 OPENAI_BASE_URL=https://api.openai.com/v1  # Optional: for custom endpoints
-OPENAI_MODEL=gpt-3.5-turbo  # Optional: specify model
+OPENAI_MODEL=gpt-4                          # Optional: defaults to gpt-4
 ```
 
-You can copy the provided example:
-```bash
-cp .env.example .env
-# Then edit .env with your API key
-```
-
-**Configuration Options:**
-- `OPENAI_API_KEY`: Required. Your OpenAI API key
-- `OPENAI_BASE_URL`: Optional. Custom API endpoint for OpenAI-compatible services
-- `OPENAI_MODEL`: Optional. Model to use (default: gpt-3.5-turbo)
-
-## Usage
-
-### Basic Usage
-
-Once installed, you can run AlloAI scripts directly from the command line:
+Alternatively, you can set these as environment variables:
 
 ```bash
-alloai script.md
+export OPENAI_API_KEY="your_openai_api_key_here"
+export OPENAI_BASE_URL="https://api.openai.com/v1"  # Optional
+export OPENAI_MODEL="gpt-4"                          # Optional
 ```
 
-### Command-Line Options
+## Quick Start
 
-```bash
-alloai --help  # Show help message
-alloai --version  # Show version
-alloai -v script.md  # Run with verbose output
-alloai --env /path/to/.env script.md  # Use specific .env file
-alloai -o output.py script.md  # Export generated code to a file
-```
+1. **Create a markdown file** (e.g., `hello.md`):
 
-### Writing AlloAI Scripts
-
-Create a markdown file with interleaved code blocks and natural language instructions:
-
-**example.md:**
-````markdown
-```python
-x = 5
-```
-
-Increment x by 1
+```markdown
+# My First psyborg Script
 
 ```python
-print(x)
+name = "World"
+print(f"Hello, {name}!")
 ```
 
-Multiply x by 10 and display it
-````
+Now create a greeting function that takes a name parameter and returns a personalized greeting.
 
-Run it:
+```python
+print(greeting("psyborg"))
+```
+```
+
+2. **Run it with psyborg**:
+
 ```bash
-alloai example.md
+psyborg hello.md
 ```
 
-Output:
-```
-6
-60
+The output will show:
+- "Hello, World!" from the first code block
+- The LLM will generate a `greeting()` function based on your instruction
+- "Hello, psyborg!" from calling the generated function
+
+## How It Works
+
+psyborg processes your markdown file sequentially:
+
+1. **Code blocks** (```python) are executed directly in the Python interpreter
+2. **Text sections** between code blocks are sent to the LLM as prompts to generate new code
+3. **Generated code** is executed in the same runtime environment
+4. **Variables and functions** persist across all code blocks and LLM generations
+5. **Results** are displayed in real-time as execution progresses
+
+## Command Line Options
+
+```bash
+psyborg [options] <markdown_file>
+
+Options:
+  -h, --help     Show help message
+  -v, --verbose  Enable verbose output for debugging
+  --version      Show version information
+  --clear-cache  Clear execution cache before running
+  --export FILE  Export executed code to a Python file
+  --dry-run      Parse and validate without executing
 ```
 
-### More Examples
+### Examples
 
-**Data Processing Example:**
-````markdown
+```bash
+# Basic execution
+psyborg script.md
+
+# Export the executed code to a Python file
+psyborg script.md --export output.py
+
+# Clear cache and run with verbose output
+psyborg script.md --clear-cache --verbose
+
+# Validate syntax without executing
+psyborg script.md --dry-run
+```
+
+## Advanced Usage
+
+### Working with Variables
+
+Variables defined in code blocks are available to subsequent LLM instructions:
+
+```markdown
 ```python
 data = [1, 2, 3, 4, 5]
 ```
 
-Calculate the sum and average of the data list, store them in variables called total and average
+Create a function to calculate the average of the data list.
 
 ```python
-print(f"Final sum: {total}")
-print(f"Final average: {average}")
+print(f"Average: {calculate_average(data)}")
 ```
-````
+```
 
-**String Manipulation Example:**
-````markdown
+### Multiple Instructions
+
+You can have multiple instruction sections that build upon each other:
+
+```markdown
 ```python
-text = "hello world"
+import pandas as pd
+df = pd.DataFrame({'x': [1, 2, 3], 'y': [4, 5, 6]})
 ```
 
-Convert the text to uppercase and reverse it, update the text variable
+Add a new column 'z' that is the sum of columns 'x' and 'y'.
 
-```python
-print(f"Result: {text}")
-```
-````
-
-**Working with Files:**
-````markdown
-```python
-import json
-data = {"name": "AlloAI", "version": "0.1.0"}
-```
-
-Write the data dictionary to a file called output.json with proper formatting
+Now create a visualization of all three columns using matplotlib.
 
 ```python
-with open("output.json", "r") as f:
-    loaded = json.load(f)
-    print(f"Loaded: {loaded}")
+print("Final DataFrame:")
+print(df)
 ```
-````
+```
 
-## Code Generation and Export
+### Custom LLM Endpoints
 
-AlloAI can generate a standalone Python script containing all the code that was executed during a run, including both the original code blocks and any LLM-generated code. This is useful for:
-- Debugging and understanding what code the LLM generated
-- Creating reusable scripts from your AlloAI experiments
-- Sharing the complete execution flow with others
-- Running the same logic without requiring the LLM on subsequent runs
-
-### Exporting Generated Code
-
-Use the `-o` or `--output` flag to save the complete executed code:
+psyborg supports any OpenAI-compatible API endpoint:
 
 ```bash
-alloai script.md -o generated_script.py
-```
+# For local models (e.g., Ollama, LocalAI)
+export OPENAI_BASE_URL="http://localhost:11434/v1"
+export OPENAI_API_KEY="not-needed"
+export OPENAI_MODEL="llama2"
 
-This will:
-1. Execute your AlloAI script normally
-2. Collect all executed code (both from markdown and LLM-generated)
-3. Save it to a standalone Python file with helpful comments
-4. Make the file executable (on Unix-like systems)
-
-### Example
-
-Given this AlloAI script (`calculation.md`):
-````markdown
-```python
-x = 10
-y = 20
-```
-
-Calculate the sum of x and y and store it in a variable called result
-
-```python
-print(f"The result is: {result}")
-```
-````
-
-Running with export:
-```bash
-alloai calculation.md -o calculation_standalone.py
-```
-
-Will generate `calculation_standalone.py`:
-```python
-#!/usr/bin/env python3
-# This file was generated by AlloAI
-# You can run this file directly with: python3 calculation_standalone.py
-
-# Code block from markdown
-x = 10
-y = 20
-
-# LLM-generated code for: Calculate the sum of x and y...
-result = x + y
-
-# Code block from markdown
-print(f"The result is: {result}")
-```
-
-You can then run the generated script directly:
-```bash
-python3 calculation_standalone.py
-# Output: The result is: 30
+# For other providers
+export OPENAI_BASE_URL="https://your-provider.com/v1"
+export OPENAI_API_KEY="your-key"
+export OPENAI_MODEL="your-model"
 ```
 
 ## Caching
 
-AlloAI includes intelligent caching to speed up iterative development and testing. Both code execution results and LLM responses are automatically cached using SHA-256 hashing.
+psyborg automatically caches:
+- Code execution results
+- LLM responses for identical prompts
+- Variable states between runs
 
-### How Caching Works
+Cache is stored in `.psyborg_cache/` and persists across sessions. Use `--clear-cache` to reset.
 
-- **Code Blocks**: Results are cached based on the code content and current variable state
-- **LLM Prompts**: Responses are cached based on the instruction and execution context
-- **Persistence**: Cache is stored locally in `~/.alloai_cache/` and persists between runs
-- **Automatic**: Caching is enabled by default for faster development cycles
+## Code Export
 
-### Cache Management
+Generate standalone Python scripts from your psyborg executions:
 
-**Disable caching for a single run:**
 ```bash
-alloai script.md --no-cache
+psyborg script.md --export generated_script.py
 ```
 
-**Clear the cache:**
-```bash
-alloai script.md --clear-cache
-```
+The exported file includes:
+- All original code blocks
+- LLM-generated code with comments indicating their source
+- Proper imports and structure for standalone execution
 
-**Clear cache without running a script:**
-```bash
-alloai --clear-cache
-```
+## Best Practices
 
-### Performance Benefits
+1. **Start Simple**: Begin with basic Python code blocks and simple instructions
+2. **Be Specific**: Clear, specific instructions yield better LLM-generated code
+3. **Iterative Development**: Use psyborg's caching for fast iteration cycles
+4. **Variable Context**: Remember that the LLM can see and use all previously defined variables
+5. **Export for Production**: Use `--export` to create deployable Python scripts
 
-Caching provides significant speedup for:
-- Iterative development and debugging
-- Re-running scripts with unchanged sections
-- Testing different parts of your AlloAI scripts
-- Expensive computations or API calls
+## Examples
 
-### Example
+Check the `examples/` directory for sample psyborg scripts demonstrating various use cases:
 
-First run (no cache):
-```bash
-alloai examples/cache_demo.md
-# Execution time: ~5 seconds (includes LLM calls)
-```
-
-Second run (with cache):
-```bash
-alloai examples/cache_demo.md
-# Execution time: <1 second (uses cached results)
-```
-
-### Programmatic Cache Control
-
-When using the Python API:
-```python
-from alloai import execute_markdown, clear_cache
-
-# Execute with caching (default)
-execute_markdown(parts, use_cache=True)
-
-# Execute without caching
-execute_markdown(parts, use_cache=False)
-
-# Clear all cached data
-clear_cache()
-```
-
-## Python API
-
-You can also use AlloAI programmatically in your Python code:
-
-```python
-from alloai import parse_markdown, execute_markdown
-
-# Read and parse markdown content
-with open("script.md", "r") as f:
-    content = f.read()
-
-# Parse the markdown
-parts = parse_markdown(content)
-
-# Execute the parsed content
-execute_markdown(parts)
-
-# Or, execute and save the generated code
-generated_code = execute_markdown(parts, output_file="output.py")
-print(f"Generated code:\n{generated_code}")
-```
-
-## How It Works
-
-1. **Parse**: AlloAI reads your markdown file and identifies code blocks and text instructions
-2. **Execute**: Code blocks run directly in a persistent Python environment
-3. **Generate**: Text instructions are sent to the LLM with the current program state
-4. **Continue**: LLM-generated code executes in the same environment, preserving all variables
-
-The key insight is that everything shares the same runtime - your code, LLM-generated code, and all variables persist throughout execution.
-
-
-
-
-
-## Requirements
-
-- Python 3.8+
-- OpenAI API key (or compatible API endpoint)
-
-## Supported LLM Providers
-
-AlloAI works with any OpenAI-compatible API:
-
-- **OpenAI**: GPT-3.5, GPT-4, etc.
-- **Azure OpenAI**: Use custom `OPENAI_BASE_URL`
-- **Local Models**: Via LM Studio, Ollama, llama.cpp, etc.
-- **Alternative Providers**: Any service with OpenAI-compatible endpoints
-
-## Limitations
-
-- Currently supports only Python code blocks
-- LLM instructions are limited by the model's code generation capabilities
-- Error handling in LLM-generated code may require manual intervention
-- Large variable states may exceed LLM context limits
+- Data analysis and visualization
+- Web scraping and API integration
+- Machine learning workflows
+- File processing and automation
+- Mathematical computations
 
 ## Troubleshooting
 
-- **API Key Not Found**: Create a `.env` file with `OPENAI_API_KEY=your_key_here`
-- **Import Errors**: Run `pip install alloai`
-- **Connection Issues**: Check your API key and internet connection
+### Common Issues
 
+**"OpenAI API key not found"**
+- Set `OPENAI_API_KEY` in your environment or `.env` file
 
+**"Module not found" errors**
+- Install required Python packages: `pip install package-name`
+
+**Cache-related issues**
+- Clear cache with: `psyborg script.md --clear-cache`
+
+**LLM generates incorrect code**
+- Be more specific in your instructions
+- Provide examples of expected input/output
+- Break complex tasks into smaller steps
+
+### Debug Mode
+
+Use verbose mode to see detailed execution information:
+
+```bash
+psyborg script.md --verbose
+```
+
+This shows:
+- Cache hit/miss information
+- LLM prompts and responses
+- Code execution details
+- Variable state changes
 
 ## Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines. For technical details, see [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+We welcome contributions! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+
+### Development Setup
+
+```bash
+git clone https://github.com/m4xw311/psyborg.git
+cd psyborg
+pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```bash
+pytest
+pytest --cov=psyborg  # With coverage report
+```
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-
+MIT License - see [LICENSE](LICENSE) file for details.
 
 ## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for a detailed history of changes to AlloAI.
+See [CHANGELOG.md](CHANGELOG.md) for version history and release notes.
+
+---
+
+**psyborg** - Where code meets natural language in perfect harmony. 🤖✨
